@@ -6,23 +6,28 @@ import { LoggerType, LogParams } from './type';
 export class LoggerService {
   constructor(private readonly loggerFactory: LoggerFactory) {}
 
-  log(type: LoggerType, message: string, params?: LogParams): void {
+  async log(
+    type: LoggerType,
+    message: string,
+    params?: LogParams,
+  ): Promise<void> {
     // Dynamically grab the target the User demands via parameters!
     const target = params?.target || 'console';
     const activeStrategies = this.loggerFactory.create(target);
 
-    activeStrategies.forEach((strategy) => {
-      switch (type) {
-        case LoggerType.ERROR:
-          strategy.error(message, params);
-          break;
-        case LoggerType.WARN:
-          strategy.warn(message, params);
-          break;
-        case LoggerType.INFO:
-          strategy.info(message, params);
-          break;
-      }
-    });
+    await Promise.allSettled(
+      activeStrategies.map((strategy) => {
+        switch (type) {
+          case LoggerType.ERROR:
+            return strategy.error(message, params);
+          case LoggerType.WARN:
+            return strategy.warn(message, params);
+          case LoggerType.INFO:
+            return strategy.info(message, params);
+          default:
+            return Promise.resolve();
+        }
+      }),
+    );
   }
 }

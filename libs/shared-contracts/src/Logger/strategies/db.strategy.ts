@@ -12,19 +12,19 @@ export class DbStrategy implements Ilogger {
     private readonly logRepository: Repository<InfLog>,
   ) {}
 
-  error(message: string, params?: LogParams): void {
-    this.saveLog('error', message, params);
+  async error(message: string, params?: LogParams): Promise<void> {
+    await this.saveLog('error', message, params);
   }
 
-  warn(message: string, params?: LogParams): void {
-    this.saveLog('warn', message, params);
+   async warn(message: string, params?: LogParams): Promise<void> {
+    await this.saveLog('warn', message, params);
   }
 
-  info(message: string, params?: LogParams): void {
-    this.saveLog('info', message, params);
+  async info(message: string, params?: LogParams): Promise<void> {
+    await this.saveLog('info', message, params);
   }
 
-  private saveLog(level: string, message: string, params?: LogParams): void {
+  private async saveLog(level: string, message: string, params?: LogParams): Promise<void> {
     const logEntry = this.logRepository.create({
       moduleCode: params?.moduleCode || 'GENERAL',
       api: params?.api || 'N/A',
@@ -32,6 +32,6 @@ export class DbStrategy implements Ilogger {
       error: level === 'error',
       createdAt: new Date().toISOString()
     });
-    this.logRepository.save(logEntry).catch(console.error);
+    await this.logRepository.save(logEntry).catch(console.error);
   }
 }

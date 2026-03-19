@@ -6,15 +6,15 @@ import { LogParams } from '../type';
 export class ConsoleStrategy implements Ilogger {
   private readonly logger = new Logger('AppLogger');
 
-  error(message: string, params?: LogParams): void {
-    this.logger.error(this.formatMessage(message, params));
+   async error(message: string, params?: LogParams): Promise<void> {
+     this.logger.error(this.formatMessage(message, params));
   }
   
-  warn(message: string, params?: LogParams): void {
+  async warn(message: string, params?: LogParams): Promise<void> {
     this.logger.warn(this.formatMessage(message, params));
   }
 
-  info(message: string, params?: LogParams): void {
+  async info(message: string, params?: LogParams): Promise<void> {
     this.logger.log(this.formatMessage(message, params));
   }
 
