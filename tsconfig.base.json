@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@civic-pulse/shared-contracts": ["libs/shared-contracts/src/index.ts"],
-      "@civic-pulse-user-dashboard/complaint-command-dto": [
+      "@civic-pulse-user-dashboard/complaint-command": [
         "libs/complaint-command-dto/src/index.ts"
       ]
     }

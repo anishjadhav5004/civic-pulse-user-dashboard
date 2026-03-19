@@ -11,30 +11,30 @@ export class ComplaintAddress {
     @Column('decimal', { precision: 11, scale: 8, nullable: true })
     longitude: number;
 
-    @Column('varchar', { nullable: true })
-    area_name: string;
+    @Column('varchar', { name: 'area_name', nullable: true })
+    areaName: string;
 
-    @Column('varchar', { nullable: true })
-    city_name: string;
+    @Column('varchar', { name: 'city_name', nullable: true })
+    cityName: string;
 
-    @Column('varchar', { nullable: true })
-    district_name: string;
+    @Column('varchar', { name: 'district_name', nullable: true })
+    districtName: string;
 
-    @Column('varchar', { nullable: true })
-    state_name: string;
+    @Column('varchar', { name: 'state_name', nullable: true })
+    stateName: string;
 
     @Column('varchar', { nullable: true })
     pincode: string;
 
-    @Column('varchar', { nullable: true })
-    country_code: string;
+    @Column('varchar', { name: 'country_code', nullable: true })
+    countryCode: string;
 
-    @Column('int', { nullable: true })
-    ward_number: number;
+    @Column('int', { name: 'ward_number', nullable: true })
+    wardNumber: number;
 
-    @Column('uuid', { nullable: true })
-    constituency_uid: string;
+    @Column('uuid', { name: 'constituency_uid', nullable: true })
+    constituencyUid: string;
 
-    @Column('boolean', { default: true })
-    is_active: boolean;
+    @Column('boolean', { name: 'is_active', default: true })
+    isActive: boolean;
 }

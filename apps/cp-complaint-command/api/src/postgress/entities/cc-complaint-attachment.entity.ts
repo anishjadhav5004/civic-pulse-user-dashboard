@@ -5,27 +5,27 @@ export class ComplaintAttachment {
     @PrimaryGeneratedColumn('uuid')
     uid: string;
 
-    @Column('uuid')
-    complaint_uid: string;
+    @Column('uuid', { name: 'complaint_uid' })
+    complaintUid: string;
 
-    @Column('varchar')
-    file_url: string;
+    @Column('varchar', { name: 'file_url' })
+    fileUrl: string;
 
-    @Column('varchar', { nullable: true })
-    file_type: string;
+    @Column('varchar', { name: 'file_type', nullable: true })
+    fileType: string;
 
-    @Column('int', { nullable: true })
-    file_size_kb: number;
+    @Column('int', { name: 'file_size_kb', nullable: true })
+    fileSizeKb: number;
 
-    @Column('boolean', { default: false })
-    is_thumbnail: boolean;
+    @Column('boolean', { name: 'is_thumbnail', default: false })
+    isThumbnail: boolean;
 
-    @Column('int', { nullable: true })
-    display_order: number;
+    @Column('int', { name: 'display_order', nullable: true })
+    displayOrder: number;
 
-    @CreateDateColumn()
-    uploaded_at: Date;
+    @CreateDateColumn({ name: 'uploaded_at' })
+    uploadedAt: Date;
 
-    @Column('boolean', { default: true })
-    is_active: boolean;
+    @Column('boolean', { name: 'is_active', default: true })
+    isActive: boolean;
 }

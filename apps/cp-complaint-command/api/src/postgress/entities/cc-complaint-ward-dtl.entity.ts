@@ -5,24 +5,24 @@ export class ComplaintWardDetail {
     @PrimaryGeneratedColumn('uuid')
     uid: string;
 
-    @Column('int')
-    ward_number: number;
+    @Column('int', { name: 'ward_number' })
+    wardNumber: number;
 
-    @Column('varchar', { nullable: true })
-    ward_admin: string;
+    @Column('varchar', { name: 'ward_admin', nullable: true })
+    wardAdmin: string;
 
-    @Column('uuid', { nullable: true })
-    ward_admin_uid: string;
+    @Column('uuid', { name: 'ward_admin_uid', nullable: true })
+    wardAdminUid: string;
 
-    @Column('varchar', { nullable: true })
-    city_name: string;
+    @Column('varchar', { name: 'city_name', nullable: true })
+    cityName: string;
 
-    @Column('varchar', { nullable: true })
-    nagarsevak_name: string;
+    @Column('varchar', { name: 'nagarsevak_name', nullable: true })
+    nagarsevakName: string;
 
-    @Column('varchar', { nullable: true })
-    mayor_name: string;
+    @Column('varchar', { name: 'mayor_name', nullable: true })
+    mayorName: string;
 
-    @Column('geometry', { spatialFeatureType: 'Polygon', srid: 4326, nullable: true })
-    ward_boundary: string;
+    @Column('geometry', { name: 'ward_boundary', spatialFeatureType: 'Polygon', srid: 4326, nullable: true })
+    wardBoundary: string;
 }

@@ -5,24 +5,24 @@ export class ComplaintComment {
     @PrimaryGeneratedColumn('uuid')
     uid: string;
 
-    @Column('uuid')
-    complaint_uid: string;
+    @Column('uuid', { name: 'complaint_uid' })
+    complaintUid: string;
 
-    @Column('uuid')
-    user_uid: string;
+    @Column('uuid', { name: 'user_uid' })
+    userUid: string;
 
-    @Column('text')
-    comment_text: string;
+    @Column('text', { name: 'comment_text' })
+    commentText: string;
 
-    @Column('boolean', { default: false })
-    is_official: boolean;
+    @Column('boolean', { name: 'is_official', default: false })
+    isOfficial: boolean;
 
-    @Column('boolean', { default: false })
-    is_internal: boolean;
+    @Column('boolean', { name: 'is_internal', default: false })
+    isInternal: boolean;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @Column('boolean', { default: false })
-    is_deleted: boolean;
+    @Column('boolean', { name: 'is_deleted', default: false })
+    isDeleted: boolean;
 }

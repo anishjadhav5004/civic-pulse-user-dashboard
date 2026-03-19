@@ -5,33 +5,33 @@ export class ComplaintStatusHistory {
     @PrimaryGeneratedColumn('uuid')
     uid: string;
 
-    @Column('uuid')
-    complaint_uid: string;
+    @Column('uuid', { name: 'complaint_uid' })
+    complaintUid: string;
 
     @Column('varchar')
     status: string;
 
-    @Column('uuid', { nullable: true })
-    modified_by: string;
+    @Column('uuid', { name: 'modified_by', nullable: true })
+    modifiedBy: string;
 
     @Column('text', { nullable: true })
     remarks: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @Column('uuid', { nullable: true })
-    assigned_to: string;
+    @Column('uuid', { name: 'assigned_to', nullable: true })
+    assignedTo: string;
 
-    @Column('timestamp', { nullable: true })
-    assigned_at: Date;
+    @Column('timestamp', { name: 'assigned_at', nullable: true })
+    assignedAt: Date;
 
-    @Column('timestamp', { nullable: true })
-    sla_deadline: Date;
+    @Column('timestamp', { name: 'sla_deadline', nullable: true })
+    slaDeadline: Date;
 
-    @Column('boolean', { default: false })
-    is_escalated: boolean;
+    @Column('boolean', { name: 'is_escalated', default: false })
+    isEscalated: boolean;
 
-    @Column('int', { default: 0 })
-    escalation_level: number;
+    @Column('int', { name: 'escalation_level', default: 0 })
+    escalationLevel: number;
 }

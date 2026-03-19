@@ -1,22 +1,22 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Priority } from '../../app/complaints/types/types';
+import { Priority } from '@civic-pulse-user-dashboard/complaint-command';
 
 @Entity('cc_complaints',{schema:'cc'})
 export class Complaint {
     @PrimaryGeneratedColumn('uuid')
     uid: string;
 
-    @Column('varchar', { unique: true })
-    complaint_number: string;
+    @Column('varchar', { name: 'complaint_number', unique: true })
+    complaintNumber: string;
 
-    @Column('uuid')
-    reported_by: string;
+    @Column('uuid', { name: 'reported_by' })
+    reportedBy: string;
 
-    @Column('uuid', { nullable: true })
-    address_uid: string;
+    @Column('uuid', { name: 'address_uid', nullable: true })
+    addressUid: string;
 
-    @Column('varchar')
-    complaint_title: string;
+    @Column('varchar', { name: 'complaint_title' })
+    complaintTitle: string;
 
     @Column('text', { nullable: true })
     description: string;
@@ -28,24 +28,25 @@ export class Complaint {
     visibility: boolean;
 
     @Column({
+        name: 'priority',
         type: 'enum',
         enum: Priority,
         default: Priority.LOW
     })
     priority: Priority;
 
-    @Column('timestamp', { nullable: true })
-    can_edit_until: Date;
+    @Column('timestamp', { name: 'can_edit_until', nullable: true })
+    canEditUntil: Date;
 
-    @Column('boolean', { default: false })
-    is_edited: boolean;
+    @Column('boolean', { name: 'is_edited', default: false })
+    isEdited: boolean;
 
-    @Column('timestamp', { nullable: true })
-    edited_at: Date;
+    @Column('timestamp', { name: 'edited_at', nullable: true })
+    editedAt: Date;
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }

@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateComplaintDto } from '@civic-pulse-user-dashboard/complaint-command-dto';
+import { CreateComplaintDto } from '@civic-pulse-user-dashboard/complaint-command';
 import { CommandBus } from '@nestjs/cqrs';
 import { AddComplaint } from './commands/add-complaint.command';
 
