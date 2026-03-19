@@ -12,6 +12,9 @@ const baseConfig = getBaseTypeOrmConfig(new AppDataSourceConfigService() as any)
 
 export const AppDataSource = new DataSource({
     ...baseConfig,
-    entities: [process.env.DB_ENTITIES || join(__dirname, 'entities/*{.ts,.js}')],
+    entities: [
+      process.env.DB_ENTITIES || join(__dirname, 'entities/*{.ts,.js}'),
+      join(__dirname, '../../../../../libs/shared-contracts/src/Logger/entity/*{.ts,.js}')
+    ],
     migrations: [process.env.DB_MIGRATIONS || join(__dirname, 'migrations/*{.ts,.js}')],
 });
