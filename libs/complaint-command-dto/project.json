@@ -1,0 +1,21 @@
+{
+  "name": "complaint-command-dto",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/complaint-command-dto/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/complaint-command-dto",
+        "main": "libs/complaint-command-dto/src/index.ts",
+        "tsConfig": "libs/complaint-command-dto/tsconfig.lib.json",
+        "assets": ["libs/complaint-command-dto/*.md"],
+        "format": ["cjs"],
+        "generatePackageJson": true
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "name": "cp-complaint-command-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cp-complaint-command/api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "webpack-cli build",
+        "args": [
+          "--node-env=production"
+        ],
+        "cwd": "apps/cp-complaint-command/api"
+      },
+      "configurations": {
+        "development": {
+          "args": [
+            "--node-env=development"
+          ]
+        }
+      }
+    },
+    "prune-lockfile": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "executor": "@nx/js:prune-lockfile",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/cp-complaint-command/api/package.json",
+        "{workspaceRoot}/dist/apps/cp-complaint-command/api/package-lock.json"
+      ],
+      "options": {
+        "buildTarget": "build"
+      }
+    },
+    "copy-workspace-modules": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "outputs": [
+        "{workspaceRoot}/dist/apps/cp-complaint-command/api/workspace_modules"
+      ],
+      "executor": "@nx/js:copy-workspace-modules",
+      "options": {
+        "buildTarget": "build"
+      }
+    },
+    "prune": {
+      "dependsOn": [
+        "prune-lockfile",
+        "copy-workspace-modules"
+      ],
+      "executor": "nx:noop"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "buildTarget": "cp-complaint-command-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cp-complaint-command-api:build:development"
+        },
+        "production": {
+          "buildTarget": "cp-complaint-command-api:build:production"
+        }
+      }
+    },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    },
+    "typeorm-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register ../../../node_modules/typeorm/cli.js migration:generate -d src/postgress/config.ts",
+        "cwd": "apps/cp-complaint-command/api"
+      }
+    },
+    "typeorm-run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node -P tsconfig.app.json -r tsconfig-paths/register ../../../node_modules/typeorm/cli.js migration:run -d src/postgress/config.ts",
+        "cwd": "apps/cp-complaint-command/api"
+      }
+    }
+  }
+}

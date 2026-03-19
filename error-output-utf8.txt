@@ -1,0 +1,25 @@
+
+[7m[1m[36m NX [39m[22m[27m [1mGenerating @nx/nest:resource[22m
+
+
+[7m[1m[31m NX [39m[22m[27m  [31mrequire() of ES Module D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\node_modules\ora\index.js from D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\package-manager\executor.js not supported.[39m
+
+Instead change the require of index.js in D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\package-manager\executor.js to a dynamic import() which is available in all CommonJS modules.
+Error [ERR_REQUIRE_ESM]: require() of ES Module D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\node_modules\ora\index.js from D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\package-manager\executor.js not supported.
+Instead change the require of index.js in D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\package-manager\executor.js to a dynamic import() which is available in all CommonJS modules.
+    at Module.require (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\compat.js:76:40)
+    at Object.<anonymous> (D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\package-manager\executor.js:51:31)
+    at Module.require (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\compat.js:76:40)
+    at Object.<anonymous> (D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tasks\node\index.js:14:36)
+    at Module.require (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\compat.js:76:40)
+    at Object.<anonymous> (D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tools\workflow\node-workflow.js:14:16)
+    at Module.require (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\compat.js:76:40)
+    at Object.<anonymous> (D:\civic-pulse-user-dashboard\node_modules\@angular-devkit\schematics\tools\index.js:28:14)
+    at Module.require (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\compat.js:76:40)
+    at createWorkflow (D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\ngcli-adapter.js:197:26)
+    at D:\civic-pulse-user-dashboard\node_modules\nx\src\adapter\ngcli-adapter.js:761:26
+    at async runNestSchematic (D:\civic-pulse-user-dashboard\node_modules\@nx\nest\src\generators\utils\run-nest-schematic.js:9:20)
+    at async D:\civic-pulse-user-dashboard\node_modules\nx\src\command-line\generate\generate.js:240:26
+    at async handleErrors (D:\civic-pulse-user-dashboard\node_modules\nx\src\utils\handle-errors.js:8:24)
+    at async Object.handler (D:\civic-pulse-user-dashboard\node_modules\nx\src\command-line\generate\command-object.js:13:22)
+

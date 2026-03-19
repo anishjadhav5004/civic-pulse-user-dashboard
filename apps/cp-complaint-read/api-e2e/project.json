@@ -1,0 +1,20 @@
+{
+  "name": "cp-complaint-read-api-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": ["cp-complaint-read-api"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/cp-complaint-read/api-e2e/jest.config.cts",
+        "passWithNoTests": true
+      },
+      "dependsOn": [
+        "cp-complaint-read-api:build",
+        "cp-complaint-read-api:serve"
+      ]
+    }
+  }
+}
