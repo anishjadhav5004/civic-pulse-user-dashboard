@@ -1,0 +1,24 @@
+# AI Assistant Global Rules for Civic Pulse Dashboard
+
+Whenever writing, refactoring, or reviewing code in this workspace, the AI must strictly adhere to the following principles:
+
+## 1. Syntax & Standards 
+- ALWAYS use the latest, most modern ECMAScript/TypeScript features and syntax (e.g., optional chaining, nullish coalescing, strict typing).
+- Never use deprecated features or legacy JavaScript constructs (like `var`).
+- Keep code clean, modular, and DRY (Don't Repeat Yourself).
+- Enforce strict typing. Do not use `any` unless absolutely necessary and explicitly documented.
+
+## 2. Architecture (NestJS + CQRS)
+- Strictly follow the Command Query Responsibility Segregation (CQRS) architectural pattern used in this project.
+- Commands should only mutate state and return basic success/IDs.
+- Queries should only read state and never mutate it.
+- Keep the domain layer pure and independent of infrastructure concerns.
+
+## 3. Performance & Optimizations
+- Always write performant and optimized code by default.
+- Prefer native array functions and optimized loops.
+- When working with databases (TypeORM, PostgreSQL, MongoDB), write efficient queries, avoid N+1 problems, and utilize proper indexing strategies.
+
+## 4. Context & Libraries
+- This is an NX Monorepo with a NestJS backend. Respect the separation of apps (`cp-complaint-command`) and shared libraries (`shared-contracts`).
+- Use built-in NodeJS/NestJS utilities before suggesting heavy third-party NPM packages.
