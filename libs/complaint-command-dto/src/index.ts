@@ -1,1 +1,1 @@
-export * from './complaint-command-dto';
+export * from './create-complaint-dto';

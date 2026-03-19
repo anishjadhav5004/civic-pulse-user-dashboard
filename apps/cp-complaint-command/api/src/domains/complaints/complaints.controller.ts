@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateComplaintDto } from './dto/create-complaint.dto';
-import { UpdateComplaintDto } from './dto/update-complaint.dto';
+import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { CreateComplaintDto } from '@civic-pulse-user-dashboard/complaint-command-dto';
 import { CommandBus } from '@nestjs/cqrs';
 import { AddComplaint } from './commands/add-complaint.command';
 
@@ -17,7 +16,7 @@ export class ComplaintsController {
 
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComplaintDto: UpdateComplaintDto) {
+  update(@Param('id') id: string, @Body() updateComplaintDto: any) {
   }
 
   @Delete(':id')

@@ -1,4 +1,4 @@
-import { CreateComplaintDto } from "../dto/create-complaint.dto";
+import { CreateComplaintDto } from "@civic-pulse-user-dashboard/complaint-command-dto";
 
 export class AddComplaint {
 

@@ -1,6 +1,5 @@
 import { CommandHandler } from "@nestjs/cqrs";
 import { AddComplaint } from "../commands/add-complaint.command";
-import { CreateComplaintDto } from "../dto/create-complaint.dto";
 import { Complaint } from "../../../postgress/entities/cc-complaint.entity";
 import { ComplaintAddress } from "../../../postgress/entities/cc-complaint-address.entity";
 import { LocationService } from "../../../services/location.service";

@@ -1,5 +1,5 @@
 import { IsBoolean, IsEnum, IsNotEmpty, IsString, ValidateNested } from "class-validator";
-import { Address, Priority } from "../types/types";
+import { Address, Priority } from "./types";
 import { Type } from 'class-transformer';
 
 
@@ -18,11 +18,11 @@ export class CreateComplaintDto {
   complaint_title: string;
 
   @IsString()
-  @IsNotEmpty()  
+  @IsNotEmpty()
   description: string;
 
   @IsString()
-  @IsNotEmpty()  
+  @IsNotEmpty()
   category: string;
 
   @IsBoolean()
@@ -36,8 +36,9 @@ export class CreateComplaintDto {
   @IsNotEmpty()
   @IsEnum(Priority)
   priority: Priority;
-  
+
   @ValidateNested()
   @Type(() => Address)
   address: Address;
 }
+
