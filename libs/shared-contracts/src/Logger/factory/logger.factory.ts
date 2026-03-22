@@ -2,25 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { ConsoleStrategy } from '../strategies/console.strategy';
 import { DbStrategy } from '../strategies/db.strategy';
 import { Ilogger } from '../Logger.interface';
-import { LogTarget } from '../type';
+import { Env } from '../type';
 
 @Injectable()
 export class LoggerFactory {
-  private readonly strategies: Map<LogTarget, Ilogger[]>;
+  private readonly strategies: Map<Env, Ilogger[]>;
 
   constructor(
     private readonly consoleStrategy: ConsoleStrategy,
     private readonly dbStrategy: DbStrategy,
   ) {
     // Build once, reuse forever
-    this.strategies = new Map<LogTarget, Ilogger[]>([
-      ['console', [this.consoleStrategy]],
-      ['db', [this.dbStrategy]],
-      ['both', [this.consoleStrategy, this.dbStrategy]],
+    this.strategies = new Map<Env, Ilogger[]>([
+      ['prod', [this.dbStrategy]],
+      ['dev', [this.consoleStrategy, this.dbStrategy]],
     ]);
   }
 
-  create(target: LogTarget = 'console'): Ilogger[] {
-    return this.strategies.get(target)!;
+  create(env: Env = 'prod'): Ilogger[] {
+    return this.strategies.get(env)!;
   }
 }

@@ -11,4 +11,4 @@ export interface LogParams {
   [key: string]: any; // Allow any custom metadata
 }
 
-export type LogTarget = 'console' | 'db' | 'both';
+export type Env = 'dev' | 'prod' ;

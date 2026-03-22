@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { LoggerFactory } from './factory/logger.factory';
-import { LoggerType, LogParams } from './type';
+import { Env, LoggerType, LogParams } from './type';
 
 @Injectable()
 export class LoggerService {
@@ -12,8 +12,8 @@ export class LoggerService {
     params?: LogParams,
   ): Promise<void> {
     // Dynamically grab the target the User demands via parameters!
-    const target = params?.target || 'console';
-    const activeStrategies = this.loggerFactory.create(target);
+    const env: Env = (process.env['environment'] || 'prod') as Env;
+    const activeStrategies = this.loggerFactory.create(env);
 
     await Promise.allSettled(
       activeStrategies.map((strategy) => {
