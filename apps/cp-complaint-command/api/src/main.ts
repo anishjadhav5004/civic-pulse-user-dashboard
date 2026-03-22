@@ -20,9 +20,13 @@ async function bootstrap() {
   await app.listen(port); // if this throws, nothing below runs
 
   // logs only fire after server is confirmed running
-  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
+  Logger.log(
+    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
+  );
   if (swaggerPath) {
-    Logger.log(`📄 Swagger Docs are available at: http://localhost:${port}/${swaggerPath}`);
+    Logger.log(
+      `📄 Swagger Docs are available at: http://localhost:${port}/${swaggerPath}`,
+    );
   }
 }
 

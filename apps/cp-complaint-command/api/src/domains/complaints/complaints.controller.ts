@@ -5,21 +5,16 @@ import { AddComplaint } from './commands/add-complaint.command';
 
 @Controller('complaints')
 export class ComplaintsController {
-  constructor(private commandBus:CommandBus) { }
+  constructor(private commandBus: CommandBus) {}
 
   @Post()
   create(@Body() createComplaintDto: CreateComplaintDto) {
-
     return this.commandBus.execute(new AddComplaint(createComplaintDto));
-
   }
-
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComplaintDto: any) {
-  }
+  update(@Param('id') id: string, @Body() updateComplaintDto: any) {}
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-  }
+  remove(@Param('id') id: string) {}
 }

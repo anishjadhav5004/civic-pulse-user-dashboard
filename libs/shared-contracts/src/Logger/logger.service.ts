@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { LoggerFactory } from './factory/logger.factory';
-import { Env, LoggerType, LogParams } from './type';
+import { Env, isValidLog, LoggerType, LogParams } from './utility/type';
 
 @Injectable()
 export class LoggerService {
@@ -11,6 +11,8 @@ export class LoggerService {
     message: string,
     params?: LogParams,
   ): Promise<void> {
+    if (!isValidLog(type)) return;
+
     // Dynamically grab the target the User demands via parameters!
     const env: Env = (process.env['environment'] || 'prod') as Env;
     const activeStrategies = this.loggerFactory.create(env);
@@ -30,4 +32,21 @@ export class LoggerService {
       }),
     );
   }
+
+  async debug(message: string, params?: LogParams): Promise<void> {
+    await this.log(LoggerType.DEBUG, message, params);
+  }
+
+  async info(message: string, params?: LogParams): Promise<void> {
+    await this.log(LoggerType.INFO, message, params);
+  }
+
+  async warn(message: string, params?: LogParams): Promise<void> {
+    await this.log(LoggerType.WARN, message, params);
+  }
+
+  async error(message: string, params?: LogParams): Promise<void> {
+    await this.log(LoggerType.ERROR, message, params);
+  }
 }
+export { Logger };
