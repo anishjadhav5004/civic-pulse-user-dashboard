@@ -6,16 +6,18 @@
       "request": "launch",
       "name": "Debug cp-complaint-command-api with Nx",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["nx", "serve", "cp-complaint-command-api"],
-      "env": {
-        "NODE_OPTIONS": "--inspect=9229"
-      },
+      "runtimeArgs": [
+        "nx",
+        "serve",
+        "cp-complaint-command-api",
+        "--inspect"
+      ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "skipFiles": ["<node_internals>/**"],
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/apps/cp-complaint-command/api/dist/**/*.(m|c|)js",
+        "${workspaceFolder}/dist/apps/cp-complaint-command/api/**/*.(m|c|)js",
         "!**/node_modules/**"
       ]
     },
@@ -33,7 +35,7 @@
       "skipFiles": ["<node_internals>/**"],
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/apps/cp-complaint-read/api/dist/**/*.(m|c|)js",
+        "${workspaceFolder}/dist/apps/cp-complaint-read/api/**/*.(m|c|)js",
         "!**/node_modules/**"
       ]
     },
@@ -42,7 +44,7 @@
       "request": "launch",
       "name": "Debug app2 with Nx",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["nx", "serve", "app2"],
+      "runtimeArgs": ["nx", "serve", "app2", "--inspect"],
       "env": {
         "NODE_OPTIONS": "--inspect=9231"
       },
@@ -51,7 +53,7 @@
       "skipFiles": ["<node_internals>/**"],
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/apps/cp-complaint-command/api/app2/dist/**/*.(m|c|)js",
+        "${workspaceFolder}/dist/apps/app2/**/*.(m|c|)js",
         "!**/node_modules/**"
       ]
     }
