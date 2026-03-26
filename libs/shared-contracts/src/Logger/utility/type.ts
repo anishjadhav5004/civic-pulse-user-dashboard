@@ -6,7 +6,6 @@ export enum LoggerType {
 }
 
 export interface LogParams {
-  target?: 'console' | 'db' | 'both';
   moduleCode?: string;
   api?: string;
   [key: string]: any; // Allow any custom metadata

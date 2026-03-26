@@ -7,26 +7,34 @@ import { ComplaintAddress } from '../entities/cc-complaint-address.entity';
 
 @Injectable()
 export class TypeOrmComplaintRepository implements IComplaintRepository {
-    constructor(
-        @InjectRepository(Complaint)
-        private readonly complaintRepo: Repository<Complaint>,
-        @InjectRepository(ComplaintAddress)
-        private readonly addressRepo: Repository<ComplaintAddress>
-    ) { }
+  constructor(
+    @InjectRepository(Complaint)
+    private readonly complaintRepo: Repository<Complaint>,
+    @InjectRepository(ComplaintAddress)
+    private readonly addressRepo: Repository<ComplaintAddress>,
+  ) {}
+  async findById(uid: string): Promise<Complaint | null> {
+    return this.complaintRepo.findOne({ where: { uid } });
+  }
 
-    async saveAddress(address: ComplaintAddress): Promise<ComplaintAddress> {
-        return this.addressRepo.save(address);
-    }
+  async saveAddress(address: ComplaintAddress): Promise<ComplaintAddress> {
+    return this.addressRepo.save(address);
+  }
 
-    async saveComplaint(complaint: Complaint): Promise<Complaint> {
-        return this.complaintRepo.save(complaint);
-    }
+  async saveComplaint(complaint: Complaint): Promise<Complaint> {
+    return this.complaintRepo.save(complaint);
+  }
 
-    async updateComplaint(id: string, complaint: Partial<Complaint>): Promise<void> {
-        await this.complaintRepo.update(id, complaint);
-    }
+  async updateComplaint(
+    uid: string,
+    complaint: Partial<Complaint>,
+  ): Promise<boolean> {
+    const result = await this.complaintRepo.update(uid, complaint);
+    return (result.affected ?? 0) > 0;
+  }
 
-    async deleteComplaint(id: string): Promise<void> {
-        await this.complaintRepo.delete(id);
-    }
+  async deleteComplaint(uid: string): Promise<boolean> {
+    const result = await this.complaintRepo.delete({ uid });
+    return (result.affected ?? 0) > 0;
+  }
 }

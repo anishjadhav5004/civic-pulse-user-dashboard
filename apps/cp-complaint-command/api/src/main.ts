@@ -4,7 +4,7 @@ if (!globalThis.crypto) {
   globalThis.crypto = crypto as any;
 }
 
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './domains/app.module';
 import { setupSwagger } from './swagger';
@@ -13,7 +13,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-
+  app.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
+  );
   const swaggerPath = setupSwagger(app); // route registered BEFORE listen
 
   const port = process.env.PORT || 3000;
