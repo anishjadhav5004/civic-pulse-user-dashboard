@@ -4,10 +4,12 @@ import {
   IsNotEmpty,
   IsString,
   ValidateNested,
+  IsOptional,
+  IsArray
 } from 'class-validator';
-import { Address, Priority } from './types';
+import { Address, Priority, Attachment } from './types';
 import { Type } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateComplaintDto {
   @ApiProperty({ example: 'CMP-12345' })
@@ -54,4 +56,11 @@ export class CreateComplaintDto {
   @ValidateNested()
   @Type(() => Address)
   address: Address;
+
+  @ApiPropertyOptional({ type: () => [Attachment] })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => Attachment)
+  attachments?: Attachment[];
 }

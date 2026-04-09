@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateComplaintDto } from '@civic-pulse-user-dashboard/complaint-command';
 import { CommandBus } from '@nestjs/cqrs';
 import { AddComplaint } from './commands/add-complaint.command';
@@ -10,18 +10,29 @@ export class ComplaintsController {
   constructor(private commandBus: CommandBus) {}
 
   @Post()
-  create(@Body() createComplaintDto: CreateComplaintDto) {
-    return this.commandBus.execute(new AddComplaint(createComplaintDto));
+  async create(@Body() createComplaintDto: CreateComplaintDto) {
+    try {
+      return await this.commandBus.execute(new AddComplaint(createComplaintDto));
+    } catch (error) {
+      throw new HttpException(error.message || 'Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComplaintDto: any) {
-    return this.commandBus.execute(new UpdateComplaint(id, updateComplaintDto));
-    //take understanding of pathc
+  async update(@Param('id') id: string, @Body() updateComplaintDto: any) {
+    try {
+      return await this.commandBus.execute(new UpdateComplaint(id, updateComplaintDto));
+    } catch (error) {
+      throw new HttpException(error.message || 'Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commandBus.execute(new DeleteComplaint(id));
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.commandBus.execute(new DeleteComplaint(id));
+    } catch (error) {
+      throw new HttpException(error.message || 'Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

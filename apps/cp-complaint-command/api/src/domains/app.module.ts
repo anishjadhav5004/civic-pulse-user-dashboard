@@ -9,6 +9,7 @@ import {
 import { AppController } from './app.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ComplaintsModule } from './complaints/complaints.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ComplaintsModule } from './complaints/complaints.module';
     TypeOrmModule.forRootAsync(sharedTypeOrmAsyncConfig),
     CqrsModule.forRoot(),
     ComplaintsModule,
+    CommentsModule,
     LoggerModule,
   ],
   controllers: [AppController],

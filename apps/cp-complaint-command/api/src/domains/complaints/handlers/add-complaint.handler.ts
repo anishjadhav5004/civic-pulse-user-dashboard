@@ -2,6 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AddComplaint } from '../commands/add-complaint.command';
 import { Complaint } from '../../../postgress/entities/cc-complaint.entity';
 import { ComplaintAddress } from '../../../postgress/entities/cc-complaint-address.entity';
+import { ComplaintAttachment } from '../../../postgress/entities/cc-complaint-attachment.entity';
 import { LocationService } from '../../../services/location.service';
 import { IComplaintRepository } from '../../../postgress/repositories/complaint.repository';
 
@@ -53,6 +54,24 @@ export class CreateComplaintHandler implements ICommandHandler<AddComplaint> {
 
     // 2. Save Complaint via the custom repository
     const savedComplaint = await this.repository.saveComplaint(newComplaint);
+
+    // 3. Save Attachments (Insta-style)
+    if (complaint.attachments && complaint.attachments.length > 0) {
+      const attachmentEntities = complaint.attachments.map((att, index) => {
+        const attachment = new ComplaintAttachment();
+        attachment.complaintUid = savedComplaint.uid;
+        attachment.fileUrl = att.fileUrl;
+        
+        if (att.fileType !== undefined) attachment.fileType = att.fileType;
+        if (att.fileSizeKb !== undefined) attachment.fileSizeKb = att.fileSizeKb;
+        if (att.isThumbnail !== undefined) attachment.isThumbnail = att.isThumbnail;
+        if (att.displayOrder !== undefined) attachment.displayOrder = att.displayOrder;
+        
+        return attachment;
+      });
+
+      await this.repository.saveAttachments(attachmentEntities);
+    }
 
     return savedComplaint;
   }

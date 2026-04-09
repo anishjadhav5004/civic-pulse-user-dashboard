@@ -12,10 +12,5 @@ export class UpdateComplaintVisibilityDate1774319745232 implements MigrationInte
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "cc"."cc_complaints" ALTER COLUMN "updated_at" SET NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "cc"."cc_complaints" ALTER COLUMN "edited_at" SET NOT NULL`);        
-        await queryRunner.query(`ALTER TABLE "cc"."cc_complaints" ALTER COLUMN "can_edit_until" DROP NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "cc"."cc_complaints" ALTER COLUMN "visibility" DROP DEFAULT`);
-        await queryRunner.query(`ALTER TABLE "cc"."cc_complaints" ALTER COLUMN "visibility" DROP NOT NULL`);
     }
 }
