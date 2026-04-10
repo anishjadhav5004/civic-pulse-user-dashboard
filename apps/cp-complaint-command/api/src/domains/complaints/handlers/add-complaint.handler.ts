@@ -73,6 +73,8 @@ export class CreateComplaintHandler implements ICommandHandler<AddComplaint> {
       await this.repository.saveAttachments(attachmentEntities);
     }
 
+    
+
     return savedComplaint;
   }
 }
