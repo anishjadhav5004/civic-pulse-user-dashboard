@@ -25,8 +25,9 @@ export class DeleteComplaintHandler
       }
 
       this.logger.info(`Complaint "${uid}" deleted successfully`);
+    // eslint-disable-next-line no-useless-catch
     } catch (error) {
-
+      // TODO: delegate to global error handler when implemented
       throw error;
     }
   }

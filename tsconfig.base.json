@@ -19,6 +19,9 @@
       "@civic-pulse/shared-contracts": ["libs/shared-contracts/src/index.ts"],
       "@civic-pulse-user-dashboard/complaint-command": [
         "libs/complaint-command-dto/src/index.ts"
+      ],
+      "@civic-pulse-user-dashboard/complaint-read": [
+        "libs/complaint-read-dto/src/index.ts"
       ]
     }
   },

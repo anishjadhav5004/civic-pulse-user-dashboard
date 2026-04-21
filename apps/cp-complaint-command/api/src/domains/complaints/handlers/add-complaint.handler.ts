@@ -1,16 +1,18 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
 import { AddComplaint } from '../commands/add-complaint.command';
 import { Complaint } from '../../../postgress/entities/cc-complaint.entity';
 import { ComplaintAddress } from '../../../postgress/entities/cc-complaint-address.entity';
 import { ComplaintAttachment } from '../../../postgress/entities/cc-complaint-attachment.entity';
 import { LocationService } from '../../../services/location.service';
 import { IComplaintRepository } from '../../../postgress/repositories/complaint.repository';
+import { ComplaintCreatedEvent } from '../events/complaint-created.event';
 
 @CommandHandler(AddComplaint)
 export class CreateComplaintHandler implements ICommandHandler<AddComplaint> {
   constructor(
     private readonly locationService: LocationService,
     private readonly repository: IComplaintRepository,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: AddComplaint) {
@@ -56,8 +58,9 @@ export class CreateComplaintHandler implements ICommandHandler<AddComplaint> {
     const savedComplaint = await this.repository.saveComplaint(newComplaint);
 
     // 3. Save Attachments (Insta-style)
+    let attachmentEntities: ComplaintAttachment[] = [];
     if (complaint.attachments && complaint.attachments.length > 0) {
-      const attachmentEntities = complaint.attachments.map((att, index) => {
+      attachmentEntities = complaint.attachments.map((att, index) => {
         const attachment = new ComplaintAttachment();
         attachment.complaintUid = savedComplaint.uid;
         attachment.fileUrl = att.fileUrl;
@@ -73,7 +76,7 @@ export class CreateComplaintHandler implements ICommandHandler<AddComplaint> {
       await this.repository.saveAttachments(attachmentEntities);
     }
 
-    
+    this.eventBus.publish(new ComplaintCreatedEvent(savedComplaint, attachmentEntities, savedAddress));
 
     return savedComplaint;
   }

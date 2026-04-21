@@ -8,12 +8,33 @@ import { TypeOrmComplaintRepository } from '../../postgress/repositories/typeorm
 import { ComplaintsController } from './complaints.controller';
 import { CreateComplaintHandler } from './handlers/add-complaint.handler';
 import { LocationService } from '../../services/location.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ComplaintCreatedEventHandler } from './handlers/complaint-created-event.handler';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Complaint, ComplaintAddress, ComplaintAttachment])],
+  imports: [
+    TypeOrmModule.forFeature([Complaint, ComplaintAddress, ComplaintAttachment]),
+    ClientsModule.registerAsync([
+      {
+        name: 'RABBITMQ_CLIENT',
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [configService.get<string>('RABBITMQ_URL') || 'amqp://localhost:5672'],
+            queue: 'complaint_created',
+            queueOptions: { durable: true },
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
+  ],
   controllers: [ComplaintsController],
   providers: [
     CreateComplaintHandler,
+    ComplaintCreatedEventHandler,
     LocationService,
     {
       provide: IComplaintRepository,

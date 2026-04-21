@@ -1,0 +1,21 @@
+{
+  "name": "complaint-read-dto",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/complaint-read-dto/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/complaint-read-dto",
+        "main": "libs/complaint-read-dto/src/index.ts",
+        "tsConfig": "libs/complaint-read-dto/tsconfig.lib.json",
+        "assets": ["libs/complaint-read-dto/*.md"],
+        "format": ["cjs"],
+        "generatePackageJson": true
+      }
+    }
+  }
+}
