@@ -12,7 +12,7 @@ export class ComplaintCreatedEventHandler implements IEventHandler<ComplaintCrea
     @Inject('RABBITMQ_CLIENT') private readonly rmqClient: ClientProxy,
   ) {}
 
-  handle(event: ComplaintCreatedEvent) {
+  async handle(event: ComplaintCreatedEvent): Promise<void> {
     this.logger.log(`Dispatching ComplaintCreatedEvent to RabbitMQ for complaint ${event.complaint.uid}`);
 
     const { complaint, attachments, address } = event;
@@ -68,6 +68,13 @@ export class ComplaintCreatedEventHandler implements IEventHandler<ComplaintCrea
       attachments: attachmentPayload,
     };
 
-    this.rmqClient.emit('complaint_created', payload);
+    // send() is request-response — waits for ack from the read service
+    // Must subscribe to trigger execution (Observable is lazy)
+    this.rmqClient
+      .send('complaint_created', payload)
+      .subscribe({
+        next: (ack) => this.logger.log(`Read service acknowledged complaint "${payload.uid}": ${JSON.stringify(ack)}`),
+        error: (err) => this.logger.error(`Read service failed to process complaint "${payload.uid}"`, err),
+      });
   }
 }
